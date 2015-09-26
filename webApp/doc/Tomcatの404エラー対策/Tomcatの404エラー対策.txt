@@ -1,0 +1,29 @@
+【前提】
+開発環境が以下の場合を想定します
+	・Eclipse開発（自分はEclipse IDE for Java EE Developersを使ってるけど何でもいいと思われる）
+	・EclipseにTomcatプラグインを導入済み
+	・（たぶんこれは関係ないけど）自分は新規プロジェクト作成のときに、Tomcatプロジェクトとして作成してる
+
+【Tomcat下のファイル設定】
+・コンテキスト情報の追加
+	-Tomcatフォルダ\conf\Catalina\localhost へ移動
+	-コンテキストファイル（プロジェクト名.xml）を追加
+	※詳しくはUluruWebApp.xml参照
+		・docBaseとPathだけ書けば、他の属性（workDir、reloadable）は自動的に補完してくれるぽい
+		・docBase：プロジェクトのルートの絶対パス
+		・Path：プロジェクト名
+
+【eclipseの設定】
+・JDKを使う（JREだとjspがコンパイルできないらしい）
+	-Window -> Preferences -> Java -> Installed JREs へ移動し、JDKをデフォルトに設定する
+	-一覧にJDKが表示されてない場合は、Searchボタンを押して手動で検索／設定
+・Tomcatのコンテキスト宣言モードを設定する
+	-Window -> Preferences -> Tomcat へ移動
+	-「コンテキスト宣言モード」で、「Server.xml」を選ぶ
+		・設定ファイルはTomcatフォルダ\conf\server.xml（初期設定で既にそうなってると思う）
+・こまめにビルドとコンテキスト更新を行う（効果があるのかはよく分からない）
+	-コンテキスト更新：パッケージエクスプローラでプロジェクトを右クリック -> Tomcatプロジェクト -> コンテキスト定義を更新
+		・何が起こってるのかはよく分からない
+
+【ひたすらデバッグ】
+・Tomcat起動時にコンソールに出るエラーメッセージが割と参考になる
