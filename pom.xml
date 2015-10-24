@@ -10,6 +10,7 @@
   
   <properties>
     <jersey.version>2.22</jersey.version>
+    <postgresql.version>9.4-1204-jdbc42</postgresql.version>
   </properties>
 
   <dependencies>
@@ -33,6 +34,11 @@
      <groupId>javax.servlet</groupId>
      <artifactId>jstl</artifactId>
      <version>1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>${postgresql.version}</version>
     </dependency>
   </dependencies>
   
