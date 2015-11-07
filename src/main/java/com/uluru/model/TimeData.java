@@ -1,15 +1,11 @@
 package com.uluru.model;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * 日時クラス
  * 
  * @author imazato
  *
  */
-@XmlRootElement
 public class TimeData {
 
 	/**
@@ -40,7 +36,6 @@ public class TimeData {
 	/**
 	 * @return the year
 	 */
-	@XmlElement
 	public int getYear() {
 		return year;
 	}
@@ -56,7 +51,6 @@ public class TimeData {
 	/**
 	 * @return the month
 	 */
-	@XmlElement
 	public int getMonth() {
 		return month;
 	}
@@ -72,7 +66,6 @@ public class TimeData {
 	/**
 	 * @return the day
 	 */
-	@XmlElement
 	public int getDay() {
 		return day;
 	}
@@ -88,7 +81,6 @@ public class TimeData {
 	/**
 	 * @return the hour
 	 */
-	@XmlElement
 	public int getHour() {
 		return hour;
 	}
@@ -104,7 +96,6 @@ public class TimeData {
 	/**
 	 * @return the minute
 	 */
-	@XmlElement
 	public int getMinute() {
 		return minute;
 	}

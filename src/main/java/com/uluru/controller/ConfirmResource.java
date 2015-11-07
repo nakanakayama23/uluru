@@ -5,10 +5,8 @@ import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
 
 import org.glassfish.jersey.server.mvc.Viewable;
 
@@ -29,13 +27,6 @@ public class ConfirmResource {
 
 	StationService stationService = new StationService();
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public ConfirmBean getJson() {
-
-        return new ConfirmBean();
-    }
-	
 	@GET
 	public Viewable handleRequest(@Context ResourceContext rc) {
 

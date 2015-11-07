@@ -1,14 +1,10 @@
 package com.uluru.model;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * 駅情報を保持するクラス
  * @author imazato
  *
  */
-@XmlRootElement
 public class Station {
 
 	/**
@@ -34,7 +30,6 @@ public class Station {
 	/**
 	 * @return the name
 	 */
-	@XmlElement
 	public String getName() {
 		return name;
 	}
@@ -49,7 +44,6 @@ public class Station {
 	/**
 	 * @return the routeName
 	 */
-	@XmlElement
 	public String getRouteName() {
 		return routeName;
 	}
@@ -64,7 +58,6 @@ public class Station {
 	/**
 	 * @return the id
 	 */
-	@XmlElement
 	public int getId() {
 		return id;
 	}
@@ -79,7 +72,6 @@ public class Station {
 	/**
 	 * @return the routeId
 	 */
-	@XmlElement
 	public int getRouteId() {
 		return routeId;
 	}
