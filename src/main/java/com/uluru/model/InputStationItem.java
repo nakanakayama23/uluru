@@ -2,16 +2,12 @@ package com.uluru.model;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * 入力駅クラス
  * 
  * @author imazato
  *
  */
-@XmlRootElement
 public class InputStationItem {
 
 	/**
@@ -34,7 +30,6 @@ public class InputStationItem {
 	/**
 	 * @return the number
 	 */
-	@XmlElement
 	public int getNumber() {
 		return number;
 	}
@@ -49,7 +44,6 @@ public class InputStationItem {
 	/**
 	 * @return the station
 	 */
-	@XmlElement
 	public List<Station> getStationList() {
 		return stationList;
 	}

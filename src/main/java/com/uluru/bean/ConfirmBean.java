@@ -2,13 +2,9 @@ package com.uluru.bean;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import com.uluru.model.InputStationItem;
 import com.uluru.model.TimeData;
 
-@XmlRootElement
 public class ConfirmBean {
 	
 	/**
@@ -24,7 +20,6 @@ public class ConfirmBean {
 	/**
 	 * @return the meetingTime
 	 */
-	@XmlElement
 	public TimeData getMeetingTime() {
 		return meetingTime;
 	}
@@ -39,7 +34,6 @@ public class ConfirmBean {
 	/**
 	 * @return the inputStationItemList
 	 */
-	@XmlElement
 	public List<InputStationItem> getInputStationItemList() {
 		return inputStationItemList;
 	}
