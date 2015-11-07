@@ -1,61 +1,91 @@
 package com.uluru.dao;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.uluru.model.Station;
 
 /**
  * Created by ukawa on 15/10/24.
  */
 public class StationDao {
-    /**
-     * PostgreSQLにアクセスし、表を作って削除するテスト用クラス
-     * DB:hellodbを用意。
-     */
-    public void testDbAccess() {
-        Connection db = null; // DB接続オブジェクト
-        Statement st = null; // SQL文オブジェクト
-        ResultSet rs = null; // 問合せ結果オブジェクト
+	/**
+	 * PostgreSQLにアクセスし、表を作って削除するテスト用クラス DB:hellodbを用意。
+	 */
+	public void testDbAccess() {
+		Connection db = null; // DB接続オブジェクト
+		Statement st = null; // SQL文オブジェクト
+		ResultSet rs = null; // 問合せ結果オブジェクト
 
-        String url = "jdbc:postgresql:hellodb"; // URL
-        String usr = "postgres"; // ユーザ名
-        String pwd = "passw0rd";
+		String url = "jdbc:postgresql:hellodb"; // URL
+		String usr = "postgres"; // ユーザ名
+		String pwd = "passw0rd";
 
-        try {
-            Class.forName("org.postgresql.Driver");
+		try {
+			Class.forName("org.postgresql.Driver");
 
-            // データベース接続
-            System.out.println("Connecting to " + url);
-            db = DriverManager.getConnection(url, usr, pwd);
-            st = db.createStatement();
+			// データベース接続
+			System.out.println("Connecting to " + url);
+			db = DriverManager.getConnection(url, usr, pwd);
+			st = db.createStatement();
 
-            // 表の作成
-            st.executeUpdate("create table hellotbl (item varchar(16))");
+			// 表の作成
+			st.executeUpdate("create table hellotbl (item varchar(16))");
 
-            // データの登録
-            st.executeUpdate("insert into hellotbl values ('Hello world!')");
-            st.executeUpdate("insert into hellotbl values ('ようこそ！')");
+			// データの登録
+			st.executeUpdate("insert into hellotbl values ('Hello world!')");
+			st.executeUpdate("insert into hellotbl values ('ようこそ！')");
 
-            // データの検索
-            rs = st.executeQuery("select * from hellotbl");
-            if (rs != null) {
-                while (rs.next()) {
-                    String item = rs.getString("item");
-                    System.out.println(item);
-                }
-            }
-            rs.close();
+			// データの検索
+			rs = st.executeQuery("select * from hellotbl");
+			if (rs != null) {
+				while (rs.next()) {
+					String item = rs.getString("item");
+					System.out.println(item);
+				}
+			}
+			rs.close();
 
-            // 表の削除
-            st.executeUpdate("drop table hellotbl");
+			// 表の削除
+			st.executeUpdate("drop table hellotbl");
 
-            // データベース切断
-            st.close();
-            db.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+			// データベース切断
+			st.close();
+			db.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * DBから候補駅リストを取得する
+	 * 
+	 * とりあえずDBから駅情報を取ってきた仮定で書いています
+	 * 
+	 * @return 候補駅リスト
+	 */
+	public List<Station> getCandidateStation(String stationName) {
+
+		List<Station> candidateStationList = new ArrayList<Station>();
+
+		Station station1 = new Station();
+		station1.setId(001);
+		station1.setName(stationName + "駅（東京）");
+		station1.setRouteId(101);
+		station1.setRouteName("有楽町線");
+		candidateStationList.add(station1);
+
+		Station station2 = new Station();
+		station2.setId(002);
+		station2.setName(stationName + "駅（大阪府）");
+		station2.setRouteId(102);
+		station2.setRouteName("ゆりかもめ");
+		candidateStationList.add(station2);
+
+		return candidateStationList;
+	}
 }
