@@ -39,6 +39,9 @@ public class ConfirmResource {
 		// エラーメッセージリストを作成
 		List<String> errorMessages = new ArrayList<String>();
 
+		// 入力の検証チェック
+		validate(form, errorMessages);
+
 		// 入力情報から集合時間のオブジェクトを作成
 		TimeData meetingTime = new TimeData();
 		meetingTime.setDate(form.getYear(), form.getMonth(), form.getDay());
@@ -50,11 +53,18 @@ public class ConfirmResource {
 				errorMessages);
 		confirmBean.setInputStationItemList(stationItemList);
 
+		// 入力情報にエラーがない場合は入力確認画面に移動
+		// エラーがある場合はメインメニューにリダイレクト
 		if (errorMessages.isEmpty()) {
 			return new Viewable("/WEB-INF/jsp/confirm", confirmBean);
 		} else {
 			return new Viewable("/WEB-INF/jsp/inputForm", errorMessages);
 		}
+	}
+
+	private void validate(InputForm form, List<String> errorMessages) {
+		// TODO ：　入力の検証を行う処理を記述
+
 	}
 
 }

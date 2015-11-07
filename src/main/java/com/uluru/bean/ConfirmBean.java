@@ -5,13 +5,19 @@ import java.util.List;
 import com.uluru.model.InputStationItem;
 import com.uluru.model.TimeData;
 
+/**
+ * 入力確認画面用Bean
+ * 
+ * @author imazato
+ *
+ */
 public class ConfirmBean {
-	
+
 	/**
 	 * 集合時間
 	 */
 	private TimeData meetingTime;
-	
+
 	/**
 	 * 入力駅リスト
 	 */
@@ -25,7 +31,8 @@ public class ConfirmBean {
 	}
 
 	/**
-	 * @param meetingTime the meetingTime to set
+	 * @param meetingTime
+	 *            the meetingTime to set
 	 */
 	public void setMeetingTime(TimeData meetingTime) {
 		this.meetingTime = meetingTime;
@@ -39,7 +46,8 @@ public class ConfirmBean {
 	}
 
 	/**
-	 * @param inputStationItemList the inputStationItemList to set
+	 * @param inputStationItemList
+	 *            the inputStationItemList to set
 	 */
 	public void setInputStationItemList(List<InputStationItem> inputStationItemList) {
 		this.inputStationItemList = inputStationItemList;
