@@ -3,7 +3,7 @@ package com.uluru.model;
 import java.util.List;
 
 /**
- * 結果クラス
+ * 検索結果モデル
  * 
  * @author imazato
  *
@@ -16,14 +16,9 @@ public class Result {
 	private String destinationStationName;
 
 	/**
-	 * 集合時間
-	 */
-	private TimeData meetingTime;
-	
-	/**
 	 * 出発駅ごとの結果リスト
 	 */
-	private List<ResultItem> resultStationList;
+	private List<ResultItem> departureStationList;
 
 	/**
 	 * @return the destinationStationName
@@ -41,32 +36,17 @@ public class Result {
 	}
 
 	/**
-	 * @return the meetingTime
-	 */
-	public TimeData getMeetingTime() {
-		return meetingTime;
-	}
-
-	/**
-	 * @param meetingTime
-	 *            the meetingTime to set
-	 */
-	public void setMeetingTime(TimeData meetingTime) {
-		this.meetingTime = meetingTime;
-	}
-
-	/**
 	 * @return the resultStationList
 	 */
 	public List<ResultItem> getResultStationList() {
-		return resultStationList;
+		return departureStationList;
 	}
 
 	/**
 	 * @param resultStationList the resultStationList to set
 	 */
 	public void setResultStationList(List<ResultItem> resultStationList) {
-		this.resultStationList = resultStationList;
+		this.departureStationList = resultStationList;
 	}
 
 }

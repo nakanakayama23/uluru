@@ -11,23 +11,30 @@
 	
 <form method="GET" action="<%= request.getContextPath() %>/search">
 
-集合日時：	<input type="text" name="year" value="2015">年
-		<input type="text" name="month" value="10">月
-		<input type="text" name="day" value="25">日
-		<input type="text" name="hour" value="18">時
-		<input type="text" name="minute" value="30">分
-		<br>
-	<br/><br/>
-	
+集合日時：	<c:out value="${it.meetingTime.year}" />年
+		<c:out value="${it.meetingTime.month}" />月
+		<c:out value="${it.meetingTime.day}" />日
+		<c:out value="${it.meetingTime.hour}" />時
+		<c:out value="${it.meetingTime.minute}" />分
+		<br><br><br>
+		<input type="hidden" name="year" value="${it.meetingTime.year}" />
+		<input type="hidden" name="month" value="${it.meetingTime.month}" />
+		<input type="hidden" name="day" value="${it.meetingTime.day}" />
+		<input type="hidden" name="hour" value="${it.meetingTime.hour}" />
+		<input type="hidden" name="minute" value="${it.meetingTime.minute}" />
+
 	<c:forEach items="${it.inputStationItemList}" var="item">
-		駅${item.number}
-		<select name="${item.number}">
+		駅<c:out value="${item.number}" />
+		<select name="station<c:out value="${item.number}" />">
 			<c:forEach var="candidate" items="${item.stationList}">
-				<option value="${candidate.id}" >${candidate.name}</option>
+				<option value="${candidate.id}" ><c:out value="${candidate.name}" /></option>
 			</c:forEach>
 		</select>
-		<br/>
+		<br>
     </c:forEach>
+    <br><br>
+    
+    <input type="submit" value="送信する">
 
 </form>
 
