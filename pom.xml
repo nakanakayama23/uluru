@@ -9,6 +9,7 @@
   <url>http://maven.apache.org</url>
   
   <properties>
+    <java.version>1.8</java.version>
     <junit.version>4.11</junit.version>
     <jersey.version>2.22</jersey.version>
     <postgresql.version>9.4-1204-jdbc42</postgresql.version>
@@ -56,7 +57,9 @@
 		  <artifactId>maven-compiler-plugin</artifactId>
 		  <configuration>
 		    <encoding>UTF-8</encoding>
-		  </configuration>
+            <source>${java.version}</source>
+            <target>${java.version}</target>
+          </configuration>
 		</plugin>
 	  </plugins>
 	</pluginManagement>
