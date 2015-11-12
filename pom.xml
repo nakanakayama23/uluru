@@ -7,7 +7,7 @@
   <version>1.0</version>
   <name>uluru web app</name>
   <url>http://maven.apache.org</url>
-  
+
   <properties>
     <junit.version>4.11</junit.version>
     <jersey.version>2.22</jersey.version>
@@ -50,6 +50,8 @@
   
   
   <build>
+    <sourceDirectory>uluru/src/main/java</sourceDirectory>
+    <testSourceDirectory>uluru/src/test/java</testSourceDirectory>
     <pluginManagement>
 	  <plugins>
 	    <plugin>
