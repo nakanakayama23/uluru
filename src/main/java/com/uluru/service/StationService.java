@@ -3,6 +3,7 @@ package com.uluru.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.uluru.dao.BetweenStationsDao;
 import com.uluru.dao.StationDao;
 import com.uluru.model.InputStationItem;
 import com.uluru.model.Result;
@@ -88,6 +89,7 @@ public class StationService {
 		List<Station> stationList = stationDao.getStationListByIds(stationIdList);
 
 		// TODO : 中間地点を検索する処理を記述
+		Station centerStation = searchCenterStation(stationIdList);
 
 		// それぞれの出発駅について、結果情報（出発時間、運賃など）のリストを作成
 		List<ResultItem> resultItemList = new ArrayList<ResultItem>();
@@ -108,10 +110,28 @@ public class StationService {
 		
 		// 検索結果のオブジェクトを作成
 		Result result = new Result();
-		result.setDestinationStationName("集合駅");
+		result.setDestinationStationName(centerStation.getName());
 		result.setResultStationList(resultItemList);
 
 		return result;
 	}
 
+	private Station searchCenterStation(List<Integer> stationIds) {
+		BetweenStationsDao betweenDao = new BetweenStationsDao();
+		List<Integer> nearStations = betweenDao.getNearStation(stationIds.get(0));
+		Integer minTime = Integer.MAX_VALUE;
+		Integer centerId = stationIds.get(0);
+		for (Integer centerStationId : nearStations) {
+			Integer sumTime = 0;
+			for (Integer stationId : stationIds) {
+				sumTime += betweenDao.getTimeBetween(stationId, centerStationId);
+			}
+			if (minTime > sumTime) {
+				minTime = sumTime;
+				centerId = centerStationId;
+			}
+		}
+		StationDao stationDao = new StationDao();
+		return stationDao.getStationById(centerId);
+	}
 }
