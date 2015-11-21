@@ -1,7 +1,7 @@
 package com.uluru.dao;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;

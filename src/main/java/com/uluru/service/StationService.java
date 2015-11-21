@@ -119,6 +119,8 @@ public class StationService {
 	private Station searchCenterStation(List<Integer> stationIds) {
 		BetweenStationsDao betweenDao = new BetweenStationsDao();
 		List<Integer> nearStations = betweenDao.getNearStation(stationIds.get(0));
+		final int breakCount = 20;
+		int failCount = 0;
 		Integer minTime = Integer.MAX_VALUE;
 		Integer centerId = stationIds.get(0);
 		for (Integer centerStationId : nearStations) {
@@ -129,6 +131,12 @@ public class StationService {
 			if (minTime > sumTime) {
 				minTime = sumTime;
 				centerId = centerStationId;
+				failCount = 0;
+			} else {
+				failCount++;
+			}
+			if (failCount >= breakCount) {
+				break;
 			}
 		}
 		StationDao stationDao = new StationDao();

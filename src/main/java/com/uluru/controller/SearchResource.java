@@ -13,6 +13,9 @@ import com.uluru.model.Result;
 import com.uluru.model.TimeData;
 import com.uluru.service.StationService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 中間駅を検索するリソース
  * 
@@ -40,7 +43,11 @@ public class SearchResource {
 		resultBean.setMeetingTime(meetingTime);
 
 		// 集合駅の検索結果を取得
-		Result result = stationService.searchUluruSpot(form.getStationIdList());
+		List<Integer> testIdList = new ArrayList<>();
+		testIdList.add(1130208);
+		testIdList.add(1130211);
+		Result result = stationService.searchUluruSpot(testIdList);
+		//Result result = stationService.searchUluruSpot(form.getStationIdList());
 		resultBean.setDestinationStationName(result.getDestinationStationName());
 		resultBean.setDepartureStationList(result.getResultStationList());
 
