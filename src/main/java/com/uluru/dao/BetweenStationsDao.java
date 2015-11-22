@@ -1,21 +1,14 @@
 package com.uluru.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.*;
 
 /**
  * Created by nagai on 15/11/12.
  */
 public class BetweenStationsDao {
-	
-	private final String CONNECTION_URL = "jdbc:mysql://160.16.94.166:54321/ULURU_DB?useUnicode=true&characterEncoding=utf8";
-	private final String DB_USER = "uluru";
-	private final String DB_PASS = "Mysql/Uluru";
-	
+
 	private final String SELECT_TIME_SQL = "SELECT S1.name AS s1, station_id1 AS id1, S2.name AS s2, station_id2 AS id2, time FROM BETWEEN_STATIONS, STATION AS S1, STATION AS S2 WHERE station_id1 = S1.station_id AND station_id2 = S2.station_id AND S1.name = ? AND S2.name = ?";
 	private final String SELECT_TIME_BETWEEN = "SELECT time FROM BETWEEN_STATIONS WHERE station_id1 = ? AND station_id2 = ? ORDER BY time";
 	private final String SELECT_NEAR_STATION = "SELECT S1.name AS s1, station_id1 AS id1, S2.name AS s2, station_id2 AS id2, time FROM BETWEEN_STATIONS, STATION AS S1, STATION AS S2 WHERE station_id1 = S1.station_id AND station_id2 = S2.station_id AND S1.name = ? ORDER BY time";
@@ -32,8 +25,8 @@ public class BetweenStationsDao {
 	public ArrayList<Integer> getTime(String s1, String s2) {
 		ArrayList<Integer> times = new ArrayList<>();
 		
-		try (	Connection con = DriverManager.getConnection(CONNECTION_URL,DB_USER,DB_PASS);
-				PreparedStatement ps = con.prepareStatement(SELECT_TIME_SQL)){
+		try (	ConnectionManager con = new ConnectionManager();
+				PreparedStatement ps = con.getPreparedStatement(SELECT_TIME_SQL)){
             ps.setString(1, s1);
             ps.setString(2, s2);
             ResultSet rs = ps.executeQuery();
@@ -45,7 +38,7 @@ public class BetweenStationsDao {
             } else {
             	times.add(-1);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 		
@@ -60,8 +53,8 @@ public class BetweenStationsDao {
 	 * @return 最短所要時間
 	 */
 	public Integer getTimeBetween(Integer stationId1, Integer stationId2) {
-		try ( Connection con = DriverManager.getConnection(CONNECTION_URL,DB_USER,DB_PASS);
-			  PreparedStatement ps = con.prepareStatement(SELECT_TIME_BETWEEN)) {
+		try ( ConnectionManager con = new ConnectionManager();
+			  PreparedStatement ps = con.getPreparedStatement(SELECT_TIME_BETWEEN)) {
 			ps.setInt(1, stationId1);
 			ps.setInt(2, stationId2);
 			ResultSet rs = ps.executeQuery();
@@ -69,7 +62,7 @@ public class BetweenStationsDao {
 			if (rs.next()) {
 				return rs.getInt("time");
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return -1;
@@ -84,8 +77,8 @@ public class BetweenStationsDao {
 	public List<String> getNearStation(String stationName) {
 		Set<String> nearStationsSet = new LinkedHashSet<>();
 
-		try ( Connection con = DriverManager.getConnection(CONNECTION_URL,DB_USER,DB_PASS);
-			  PreparedStatement ps = con.prepareStatement(SELECT_NEAR_STATION)) {
+		try ( ConnectionManager con = new ConnectionManager();
+			  PreparedStatement ps = con.getPreparedStatement(SELECT_NEAR_STATION)) {
 			ps.setString(1, stationName);
 			ResultSet rs = ps.executeQuery();
 
@@ -94,7 +87,7 @@ public class BetweenStationsDao {
 					nearStationsSet.add(rs.getString("s2"));
 				}
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -111,8 +104,8 @@ public class BetweenStationsDao {
 	public List<Integer> getNearStation(Integer stationId) {
 		List<Integer> nearStations = new ArrayList<>();
 
-		try ( Connection con = DriverManager.getConnection(CONNECTION_URL,DB_USER,DB_PASS);
-			  PreparedStatement ps = con.prepareStatement(SELECT_NEAR_STATION_ID)) {
+		try ( ConnectionManager con = new ConnectionManager();
+			  PreparedStatement ps = con.getPreparedStatement(SELECT_NEAR_STATION_ID)) {
 			ps.setInt(1, stationId);
 			ResultSet rs = ps.executeQuery();
 
@@ -121,7 +114,7 @@ public class BetweenStationsDao {
 					nearStations.add(rs.getInt("station_id2"));
 				}
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -138,8 +131,8 @@ public class BetweenStationsDao {
 	public Map<Integer, Map<Integer, Integer>> getTimeTable(List<Integer> stationIds) {
 		Map<Integer, Map<Integer, Integer>> timeTable = new LinkedHashMap<>();
 
-		try ( Connection con = DriverManager.getConnection(CONNECTION_URL,DB_USER,DB_PASS);
-			  PreparedStatement ps = con.prepareStatement(SELECT_NEAR_STATION_ID)) {
+		try ( ConnectionManager con = new ConnectionManager();
+			  PreparedStatement ps = con.getPreparedStatement(SELECT_NEAR_STATION_ID)) {
 			for (Integer id : stationIds) {
 				ps.setInt(1, id);
 				ResultSet rs = ps.executeQuery();
@@ -153,7 +146,7 @@ public class BetweenStationsDao {
 				}
 
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 

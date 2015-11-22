@@ -121,18 +121,8 @@ public class StationService {
 	private Station searchCenterStation(List<Integer> stationIds) {
 		BetweenStationsDao betweenDao = new BetweenStationsDao();
 		Map<Integer, Map<Integer, Integer>> timeTables = betweenDao.getTimeTable(stationIds);
-		Integer sid = stationIds.get(0);
-		System.out.println("stationId(0) = " + sid);
-		Map<Integer, Integer> table = timeTables.get(sid);
-		for ( Map.Entry<Integer, Integer> entry : table.entrySet()) {
-			System.out.println("from : " + entry.getKey() + " to : " + entry.getValue());
-		}
-		Set<Integer> nearStations = table.keySet();
-		System.out.println("stations");
-		for (Integer st : nearStations) {
-			System.out.println(st);
-		}
-//		Set<Integer> nearStations = timeTables.get(stationIds.get(0)).keySet();
+		Set<Integer> nearStations = timeTables.get(stationIds.get(0)).keySet();
+
 		final int breakCount = 20;
 		int failCount = 0;
 		Integer minTime = Integer.MAX_VALUE;
@@ -154,6 +144,7 @@ public class StationService {
 				break;
 			}
 		}
+
 		StationDao stationDao = new StationDao();
 		return stationDao.getStationById(centerId);
 	}

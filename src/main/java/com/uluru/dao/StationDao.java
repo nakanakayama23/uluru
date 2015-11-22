@@ -2,11 +2,8 @@ package com.uluru.dao;
 
 import com.uluru.model.Station;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +11,6 @@ import java.util.List;
  * Created by ukawa on 15/11/21.
  */
 public class StationDao {
-
-	private final String CONNECTION_URL = "jdbc:mysql://160.16.94.166:54321/ULURU_DB?useUnicode=true&characterEncoding=utf8";
-	private final String DB_USER = "uluru";
-	private final String DB_PASS = "Mysql/Uluru";
 
 	private final String SELECT_STATION_SQL = "SELECT name, station_id, line_id FROM STATION WHERE station_id = ?";
 
@@ -80,8 +73,8 @@ public class StationDao {
 	public Station getStationById(int id) {
 		Station station = new Station();
 
-		try (	Connection con = DriverManager.getConnection(CONNECTION_URL,DB_USER,DB_PASS);
-				 PreparedStatement ps = con.prepareStatement(SELECT_STATION_SQL)){
+		try (	ConnectionManager con = new ConnectionManager();
+				 PreparedStatement ps = con.getPreparedStatement(SELECT_STATION_SQL)){
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 
@@ -91,7 +84,7 @@ public class StationDao {
 				station.setRouteId(rs.getInt("line_id"));
 				station.setRouteName("埼京線"); // LINE tableとの結合はしてない。
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
