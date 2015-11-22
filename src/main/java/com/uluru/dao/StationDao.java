@@ -1,65 +1,18 @@
 package com.uluru.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import com.uluru.model.Station;
+
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.uluru.model.Station;
-
 /**
- * Created by ukawa on 15/10/24.
+ * Created by ukawa on 15/11/21.
  */
 public class StationDao {
-	/**
-	 * PostgreSQLにアクセスし、表を作って削除するテスト用クラス DB:hellodbを用意。
-	 */
-	public void testDbAccess() {
-		Connection db = null; // DB接続オブジェクト
-		Statement st = null; // SQL文オブジェクト
-		ResultSet rs = null; // 問合せ結果オブジェクト
 
-		String url = "jdbc:postgresql:hellodb"; // URL
-		String usr = "postgres"; // ユーザ名
-		String pwd = "passw0rd";
-
-		try {
-			Class.forName("org.postgresql.Driver");
-
-			// データベース接続
-			System.out.println("Connecting to " + url);
-			db = DriverManager.getConnection(url, usr, pwd);
-			st = db.createStatement();
-
-			// 表の作成
-			st.executeUpdate("create table hellotbl (item varchar(16))");
-
-			// データの登録
-			st.executeUpdate("insert into hellotbl values ('Hello world!')");
-			st.executeUpdate("insert into hellotbl values ('ようこそ！')");
-
-			// データの検索
-			rs = st.executeQuery("select * from hellotbl");
-			if (rs != null) {
-				while (rs.next()) {
-					String item = rs.getString("item");
-					System.out.println(item);
-				}
-			}
-			rs.close();
-
-			// 表の削除
-			st.executeUpdate("drop table hellotbl");
-
-			// データベース切断
-			st.close();
-			db.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	private final String SELECT_STATION_SQL = "SELECT name, station_id, line_id FROM STATION WHERE station_id = ?";
 
 	/**
 	 * <pre>
@@ -114,18 +67,26 @@ public class StationDao {
 	/**
 	 * 駅IDをもとに、DBから駅情報を取得
 	 * 
-	 * @param id
+	 * @param id 駅ID
 	 * @return 駅
 	 */
-	private Station getStationById(int id) {
+	public Station getStationById(int id) {
 		Station station = new Station();
 
-		// TODO : IDから駅情報を取得する処理を記述
+		try (	ConnectionManager con = new ConnectionManager();
+				 PreparedStatement ps = con.getPreparedStatement(SELECT_STATION_SQL)){
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
 
-		station.setId(id);
-		station.setName("出発駅");
-		station.setRouteId(0);
-		station.setRouteName("埼京線");
+			if (rs.next()) {
+				station.setId(rs.getInt("station_id"));
+				station.setName(rs.getString("name"));
+				station.setRouteId(rs.getInt("line_id"));
+				station.setRouteName("埼京線"); // LINE tableとの結合はしてない。
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return station;
 	}

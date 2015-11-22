@@ -82,5 +82,16 @@ public class Station {
 	public void setRouteId(int routeId) {
 		this.routeId = routeId;
 	}
-	
+
+	@Override
+	public boolean equals(Object a) {
+		Station other = (Station)a;
+		if (this.getId() != other.getId() || this.getRouteId() != other.getRouteId()) {
+			return false;
+		}
+		if (!this.getName().equals(other.getName()) || !this.getRouteName().equals(other.getRouteName())) {
+			return false;
+		}
+		return true;
+	}
 }
