@@ -6,6 +6,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 /**
  * Created by ukawa on 15/11/21.
  */
@@ -18,6 +21,6 @@ public class StationServiceTest {
         input.add(1130210);
         Result actual = target.searchUluruSpot(input);
 
-        assertThat(actual.getDestinationStationName(), "新大久保");
+        assertThat(actual.getDestinationStationName(), is("新大久保"));
     }
 }

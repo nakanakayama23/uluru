@@ -45,7 +45,7 @@ public class SearchResource {
 		// 集合駅の検索結果を取得
 		List<Integer> testIdList = new ArrayList<>();
 		testIdList.add(1130208);
-		testIdList.add(1130211);
+		testIdList.add(1130210);
 		Result result = stationService.searchUluruSpot(testIdList);
 		//Result result = stationService.searchUluruSpot(form.getStationIdList());
 		resultBean.setDestinationStationName(result.getDestinationStationName());

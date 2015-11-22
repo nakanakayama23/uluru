@@ -5,10 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by nagai on 15/11/12.
@@ -129,6 +126,38 @@ public class BetweenStationsDao {
 		}
 
 		return nearStations;
+	}
+
+	/**
+	 * 駅から各駅まで必要な時間を取得する。
+	 * DBが大きくなるとメモリが絶対足りないと思う。
+	 *
+	 * @param stationIds 出発駅IDリスト
+	 * @return 出発駅から各駅までの所要時間
+	 */
+	public Map<Integer, Map<Integer, Integer>> getTimeTable(List<Integer> stationIds) {
+		Map<Integer, Map<Integer, Integer>> timeTable = new LinkedHashMap<>();
+
+		try ( Connection con = DriverManager.getConnection(CONNECTION_URL,DB_USER,DB_PASS);
+			  PreparedStatement ps = con.prepareStatement(SELECT_NEAR_STATION_ID)) {
+			for (Integer id : stationIds) {
+				ps.setInt(1, id);
+				ResultSet rs = ps.executeQuery();
+
+				Map<Integer, Integer> arriveTime = new LinkedHashMap<>();
+				timeTable.put(id, arriveTime);
+				if (rs.next()) {
+					while (rs.next()) {
+						arriveTime.put(rs.getInt("station_id2"), rs.getInt("time"));
+					}
+				}
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return timeTable;
 	}
 
 	/**

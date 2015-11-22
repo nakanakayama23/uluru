@@ -2,6 +2,8 @@ package com.uluru.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.uluru.dao.BetweenStationsDao;
 import com.uluru.dao.StationDao;
@@ -118,7 +120,19 @@ public class StationService {
 
 	private Station searchCenterStation(List<Integer> stationIds) {
 		BetweenStationsDao betweenDao = new BetweenStationsDao();
-		List<Integer> nearStations = betweenDao.getNearStation(stationIds.get(0));
+		Map<Integer, Map<Integer, Integer>> timeTables = betweenDao.getTimeTable(stationIds);
+		Integer sid = stationIds.get(0);
+		System.out.println("stationId(0) = " + sid);
+		Map<Integer, Integer> table = timeTables.get(sid);
+		for ( Map.Entry<Integer, Integer> entry : table.entrySet()) {
+			System.out.println("from : " + entry.getKey() + " to : " + entry.getValue());
+		}
+		Set<Integer> nearStations = table.keySet();
+		System.out.println("stations");
+		for (Integer st : nearStations) {
+			System.out.println(st);
+		}
+//		Set<Integer> nearStations = timeTables.get(stationIds.get(0)).keySet();
 		final int breakCount = 20;
 		int failCount = 0;
 		Integer minTime = Integer.MAX_VALUE;
@@ -126,7 +140,8 @@ public class StationService {
 		for (Integer centerStationId : nearStations) {
 			Integer sumTime = 0;
 			for (Integer stationId : stationIds) {
-				sumTime += betweenDao.getTimeBetween(stationId, centerStationId);
+				Integer time = timeTables.get(stationId).get(centerStationId);
+				sumTime += (time != null) ? time : 0;
 			}
 			if (minTime > sumTime) {
 				minTime = sumTime;
