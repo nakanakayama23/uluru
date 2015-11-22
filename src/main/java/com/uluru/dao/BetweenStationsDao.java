@@ -31,7 +31,7 @@ public class BetweenStationsDao {
             ps.setString(2, s2);
             ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
+            if (rs != null) {
 	            while(rs.next()) {
 	                times.add(rs.getInt("time"));
 	            }
@@ -82,10 +82,8 @@ public class BetweenStationsDao {
 			ps.setString(1, stationName);
 			ResultSet rs = ps.executeQuery();
 
-			if (rs.next()) {
-				while (rs.next()) {
-					nearStationsSet.add(rs.getString("s2"));
-				}
+			while (rs.next()) {
+				nearStationsSet.add(rs.getString("s2"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -109,10 +107,9 @@ public class BetweenStationsDao {
 			ps.setInt(1, stationId);
 			ResultSet rs = ps.executeQuery();
 
-			if (rs.next()) {
-				while (rs.next()) {
-					nearStations.add(rs.getInt("station_id2"));
-				}
+
+			while (rs.next()) {
+				nearStations.add(rs.getInt("station_id2"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -139,10 +136,9 @@ public class BetweenStationsDao {
 
 				Map<Integer, Integer> arriveTime = new LinkedHashMap<>();
 				timeTable.put(id, arriveTime);
-				if (rs.next()) {
-					while (rs.next()) {
+
+				while (rs.next()) {
 						arriveTime.put(rs.getInt("station_id2"), rs.getInt("time"));
-					}
 				}
 
 			}
