@@ -11,17 +11,17 @@ body {
 	margin-right: 20%;
 }
 
-.box1 {
-	float: left;
-	padding :
-}
-
 .main {
     text-align: center;
 }
 
 .grid{
   float: left;
+  background:#ffffff;
+  color:#000000;
+  margin: 5px;
+  padding:2px;
+  word-wrap: break-word;
 }
 
 .destination_Station{
@@ -31,21 +31,11 @@ body {
 @media screen and (max-width : 1080px){
 	.grid {
 		width:96%;
-		margin: 2px;
-		padding:10px;
-		word-wrap: break-word;
-		background:#ffffff;
-		color:#000000;
 	}
 }
 @media screen and (min-width : 1081px){
 	.grid {
 		width:20%;
-		margin:5px;
-		padding:7px;
-		word-wrap: break-word;
-		background:#ffffff;
-		color:#000000;
 	}
 }
 	</style>
