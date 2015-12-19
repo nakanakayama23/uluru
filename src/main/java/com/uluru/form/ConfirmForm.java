@@ -57,12 +57,9 @@ public class ConfirmForm {
 		for (int i = 1; i <= Constant.MAX_STATION_NUMBER; i++) {
 
 			// 駅名が入力されていたらその駅のIDをリストに追加
-			// 駅名が入力されていなかったらリストに“0”を追加
 			String stationId = info.getQueryParameters().getFirst("station" + i);
 			if (stationId != null) {
 				stationIdList.add(Integer.parseInt(stationId));
-			} else {
-				stationIdList.add(0);
 			}
 		}
 

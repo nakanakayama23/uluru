@@ -11,6 +11,7 @@ public class BetweenStationsDao {
 
 	private final String SELECT_TIME_SQL = "SELECT S1.name AS s1, station_id1 AS id1, S2.name AS s2, station_id2 AS id2, time FROM BETWEEN_STATIONS, STATION AS S1, STATION AS S2 WHERE station_id1 = S1.station_id AND station_id2 = S2.station_id AND S1.name = ? AND S2.name = ?";
 	private final String SELECT_TIME_BETWEEN = "SELECT time FROM BETWEEN_STATIONS WHERE station_id1 = ? AND station_id2 = ? ORDER BY time";
+	private final String SELECT_FARE_BETWEEN = "SELECT fare, time FROM BETWEEN_STATIONS WHERE station_id1 = ? AND station_id2 = ? ORDER BY time";
 	private final String SELECT_NEAR_STATION = "SELECT S1.name AS s1, station_id1 AS id1, S2.name AS s2, station_id2 AS id2, time FROM BETWEEN_STATIONS, STATION AS S1, STATION AS S2 WHERE station_id1 = S1.station_id AND station_id2 = S2.station_id AND S1.name = ? ORDER BY time";
 	private final String SELECT_NEAR_STATION_ID = "SELECT station_id2, time FROM BETWEEN_STATIONS WHERE station_id1 = ? ORDER BY time";
 
@@ -31,9 +32,10 @@ public class BetweenStationsDao {
             ps.setString(2, s2);
             ResultSet rs = ps.executeQuery();
 
-            if (rs != null) {
+            if (rs.next()) {
+				times.add(rs.getInt("time"));
 	            while(rs.next()) {
-	                times.add(rs.getInt("time"));
+					times.add(rs.getInt("time"));
 	            }
             } else {
             	times.add(-1);
@@ -157,6 +159,31 @@ public class BetweenStationsDao {
 	 * @return
 	 */
 	public int getFare(String s1, String s2) {
+		return -1;
+	}
+
+	/**
+	 * 料金を返す。
+	 * 現在は時間優先探索の金額。
+	 *
+	 * @param stationId1 駅Id1
+	 * @param stationId2 駅Id2
+	 * @return 駅1 - 駅2　間の運賃
+	 */
+	public int getFareBetween(Integer stationId1, Integer stationId2) {
+		try ( ConnectionManager con = new ConnectionManager();
+			  PreparedStatement ps = con.getPreparedStatement(SELECT_FARE_BETWEEN)) {
+			ps.setInt(1, stationId1);
+			ps.setInt(2, stationId2);
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				return rs.getInt("fare");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
 		return -1;
 	}
 }

@@ -40,7 +40,7 @@ public class SearchResource {
 		resultBean.setMeetingTime(meetingTime);
 
 		// 集合駅の検索結果を取得
-		Result result = stationService.searchUluruSpot(form.getStationIdList());
+		Result result = stationService.searchUluruSpot(form.getStationIdList(), meetingTime);
 		resultBean.setDestinationStationName(result.getDestinationStationName());
 		resultBean.setDepartureStationList(result.getResultStationList());
 

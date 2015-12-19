@@ -22,6 +22,7 @@ import com.uluru.model.TimeData;
 public class StationService {
 
 	StationDao stationDao = new StationDao();
+	BetweenStationsDao betweenDao = new BetweenStationsDao();
 
 	/**
 	 * 入力されたすべての駅の情報リストを取得する
@@ -87,10 +88,9 @@ public class StationService {
 	 *            駅のIDリスト
 	 * @return 検索結果
 	 */
-	public Result searchUluruSpot(List<Integer> stationIdList) {
+	public Result searchUluruSpot(List<Integer> stationIdList, TimeData meetingTime) {
 		List<Station> stationList = stationDao.getStationListByIds(stationIdList);
 
-		// TODO : 中間地点を検索する処理を記述
 		Station centerStation = searchCenterStation(stationIdList);
 
 		// それぞれの出発駅について、結果情報（出発時間、運賃など）のリストを作成
@@ -101,11 +101,12 @@ public class StationService {
 			ResultItem resultItem = new ResultItem();
 			resultItem.setNumber(i + 1);
 			resultItem.setDepartureStationName(station.getName());
-			TimeData time = new TimeData();
-			time.setDate("2016", "01", "01");
-			time.setTime("15", "26");
+			int betweenTime = betweenDao.getTimeBetween(station.getId(), centerStation.getId());
+			TimeData time = new TimeData(meetingTime);
+			time.before(betweenTime);
 			resultItem.setDepartureTime(time);
-			resultItem.setFare(120);
+			int fare = betweenDao.getFareBetween(station.getId(), centerStation.getId());
+			resultItem.setFare(fare);
 
 			resultItemList.add(resultItem);
 		}
@@ -118,6 +119,11 @@ public class StationService {
 		return result;
 	}
 
+	/**
+	 * stationIds の駅の中間駅を検索して返す
+	 * @param stationIds 出発駅IDリスト
+	 * @return 中間駅
+	 */
 	private Station searchCenterStation(List<Integer> stationIds) {
 		BetweenStationsDao betweenDao = new BetweenStationsDao();
 		Map<Integer, Map<Integer, Integer>> timeTables = betweenDao.getTimeTable(stationIds);

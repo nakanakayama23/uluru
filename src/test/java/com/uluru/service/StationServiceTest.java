@@ -1,6 +1,7 @@
 package com.uluru.service;
 
 import com.uluru.model.Result;
+import com.uluru.model.TimeData;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class StationServiceTest {
         List<Integer> input = new ArrayList<>();
         input.add(1130208);
         input.add(1130210);
-        Result actual = target.searchUluruSpot(input);
+        Result actual = target.searchUluruSpot(input,new TimeData());
 
         assertThat(actual.getDestinationStationName(), is("新大久保"));
     }

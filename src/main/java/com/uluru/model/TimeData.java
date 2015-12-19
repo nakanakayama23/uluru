@@ -108,6 +108,16 @@ public class TimeData {
 		this.minute = minute;
 	}
 
+	public TimeData() {}
+
+	public TimeData(TimeData t) {
+		setYear(t.getYear());
+		setMonth(t.getMonth());
+		setDay(t.getDay());
+		setHour(t.getHour());
+		setMinute(t.getMinute());
+	}
+
 	/**
 	 * 日付を設定する
 	 */
@@ -124,5 +134,24 @@ public class TimeData {
 	public void setTime(String hour, String minute){
 		setHour(Integer.parseInt(hour));
 		setMinute(Integer.parseInt(minute));
+	}
+
+	/**
+	 * 時間を巻き戻す。
+	 */
+	public void before(int minute) {
+		int diffMin = this.minute - minute;
+		if (diffMin < 0) {
+			int dHour = diffMin / 60 + 1;
+			this.minute = dHour * 60 + diffMin;
+			int diffHour = this.hour - dHour;
+			if ( false ) {
+				// 日付をまたぐ処理はとりあえず考慮しない。
+			} else {
+				this.hour = diffHour;
+			}
+		} else {
+			this.minute = diffMin;
+		}
 	}
 }
