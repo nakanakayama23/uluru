@@ -5,7 +5,9 @@ import com.uluru.model.Station;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by ukawa on 15/11/21.
@@ -13,6 +15,7 @@ import java.util.List;
 public class StationDao {
 
 	private final String SELECT_STATION_SQL = "SELECT name, station_id, line_id FROM STATION WHERE station_id = ?";
+	private final String CANDIDATE_STATION_SQL = "SELECT name, station_id, line_id FROM STATION WHERE name LIKE ?";
 
 	/**
 	 * <pre>
@@ -26,23 +29,28 @@ public class StationDao {
 	 */
 	public List<Station> getCandidateStation(String stationName) {
 
-		// TODO : 候補駅リストを取得する処理を記述
-
 		List<Station> candidateStationList = new ArrayList<Station>();
 
-		Station station1 = new Station();
-		station1.setId(001);
-		station1.setName(stationName + "駅（東京）");
-		station1.setRouteId(101);
-		station1.setRouteName("有楽町線");
-		candidateStationList.add(station1);
+		try (	ConnectionManager con = new ConnectionManager();
+				 PreparedStatement ps = con.getPreparedStatement(CANDIDATE_STATION_SQL)){
+			ps.setString(1, "%" + stationName + "%");
+			ResultSet rs = ps.executeQuery();
 
-		Station station2 = new Station();
-		station2.setId(002);
-		station2.setName(stationName + "駅（大阪府）");
-		station2.setRouteId(102);
-		station2.setRouteName("ゆりかもめ");
-		candidateStationList.add(station2);
+			Set<String> registerStation = new HashSet<String>();
+			while (rs.next()) {
+				if (registerStation.add(rs.getString("name"))) {
+					Station station = new Station();
+					station.setId(rs.getInt("station_id"));
+					station.setName(rs.getString("name"));
+					station.setRouteId(rs.getInt("line_id"));
+					station.setRouteName("埼京線"); // LINE tableとの結合はしてない。
+					candidateStationList.add(station);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
 
 		return candidateStationList;
 	}
