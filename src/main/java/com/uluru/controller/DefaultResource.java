@@ -1,12 +1,11 @@
 package com.uluru.controller;
 
+import javax.servlet.ServletContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import javax.ws.rs.core.Context;
+import java.io.*;
 
 /**
  * Created by ukawa on 15/11/08.
@@ -15,6 +14,9 @@ import java.io.IOException;
 @Path("{path:.+}")
 public class DefaultResource {
 
+    @Context
+    ServletContext context;
+
     /**
      * webapp以下のjsやcssなんかをbyteで返す。
      * @param path リソースへのパス
@@ -22,7 +24,7 @@ public class DefaultResource {
      */
     @GET
     public byte[] getResource(@PathParam("path") String path) {
-        return readResource("src/main/webapp/" + path);
+        return readResource(path);
     }
 
     /**
@@ -33,18 +35,20 @@ public class DefaultResource {
     private byte[] readResource(String path) {
         int max = 100;
         byte[] b = new byte[max];
-        try ( FileInputStream fileStream = new FileInputStream(path)) {
+
+        InputStream inputStream = context.getResourceAsStream(path);
+        if ( inputStream != null ) {
             try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
                 int len = 0;
-                while ((len = fileStream.read(b, 0, max)) > 0) {
+                while ((len = inputStream.read(b, 0, max)) > 0) {
                     baos.write(b, 0, len);
                 }
                 return baos.toByteArray();
             } catch (IOException e) {
                 throw new RuntimeException("resource couldn't read. ", e);
             }
-        } catch (IOException e) {
-            throw new RuntimeException("resource couldn't read. ", e);
+        } else {
+            throw new RuntimeException("resource couldn't read. path = " + path);
         }
     }
 

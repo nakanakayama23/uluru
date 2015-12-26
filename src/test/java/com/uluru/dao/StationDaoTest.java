@@ -1,5 +1,6 @@
 package com.uluru.dao;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -7,6 +8,7 @@ import org.junit.Test;
  */
 public class StationDaoTest{
 
+    @Ignore
     @Test
     public void testTest1() throws Exception {
         System.out.println("test run");
