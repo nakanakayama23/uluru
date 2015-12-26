@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -65,15 +66,16 @@ public class BetweenStationsDaoTest {
 	/**
 	 * 近い駅IDを取得できること。
 	 */
-//	@Test
-//	public void getNearStationIdTest() {
-//		BetweenStationsDao target = new BetweenStationsDao();
-//
-//		List<Integer> actual = target.getNearStation(1131211); // 新宿
-//		// これ、実行結果から持ってきたのでDBのデータで正しいか微妙なのと、検索時間によって順番変わるならあかん。
-//		Integer[] expected = {1130208, 1130207, 1130209, 1130206, 1130210, 1130205, 1131207, 1131214, 1130211};
-//		assertThat(actual.subList(0, expected.length), contains(expected));
-//	}
+	@Ignore
+	@Test
+	public void getNearStationIdTest() {
+		BetweenStationsDao target = new BetweenStationsDao();
+
+		List<Integer> actual = target.getNearStation(1131211); // 新宿
+		// これ、実行結果から持ってきたのでDBのデータで正しいか微妙なのと、検索時間によって順番変わるならあかん。
+		Integer[] expected = {1130208, 1130207, 1130209, 1130206, 1130210, 1130205, 1131207, 1131214, 1130211};
+		assertThat(actual.subList(0, expected.length), contains(expected));
+	}
 
 	/**
 	 * 最短所要時間
