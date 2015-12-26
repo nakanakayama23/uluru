@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -54,6 +55,7 @@ public class BetweenStationsDaoTest {
 	/**
 	 * 近い駅IDを取得できること。
 	 */
+	@Ignore
 	@Test
 	public void getNearStationIdTest() {
 		BetweenStationsDao target = new BetweenStationsDao();

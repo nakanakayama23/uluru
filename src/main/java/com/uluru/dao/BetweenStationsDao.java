@@ -31,7 +31,8 @@ public class BetweenStationsDao {
             ps.setString(2, s2);
             ResultSet rs = ps.executeQuery();
 
-            if (rs != null) {
+            if (rs.next()) {
+				times.add(rs.getInt("time"));
 	            while(rs.next()) {
 	                times.add(rs.getInt("time"));
 	            }
