@@ -1,5 +1,6 @@
 package com.uluru;
 
+import com.uluru.test.JspTestResource;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.mvc.jsp.JspMvcFeature;
 
@@ -17,6 +18,8 @@ public class MyApplication extends ResourceConfig {
 	 * リソースを登録するコンストラクタ。
 	 */
 	public MyApplication() {
-		this.packages(SampleResource.class.getPackage().getName()).register(JspMvcFeature.class);
+		this.packages(SampleResource.class.getPackage().getName())
+				.register(JspMvcFeature.class)
+				.register(JspTestResource.class);
 	}
 }
