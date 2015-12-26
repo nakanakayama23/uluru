@@ -39,6 +39,17 @@ public class BetweenStationsDaoTest {
 	}
 
 	/**
+	 * 運賃を取得できること。
+	 */
+	@Test
+	public void getFareTest() {
+		BetweenStationsDao bsd = new BetweenStationsDao();
+
+		Integer fare = bsd.getFareBetween(1131211, 1131207);
+		assertThat(fare, is(0));// 154
+	}
+
+	/**
 	 * 近い駅名を取得できること。
 	 */
 	@Test
