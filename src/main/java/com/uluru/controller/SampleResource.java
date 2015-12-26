@@ -23,4 +23,7 @@ public class SampleResource {
   public Viewable getJSP() {
     return new Viewable("/WEB-INF/jsp/index", "testaaa");
   }
+
+  @GET
+  public String getResponse() { return "server is running."; }
 }

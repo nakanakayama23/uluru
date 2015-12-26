@@ -4,6 +4,11 @@ import java.util.List;
 
 import javax.ws.rs.QueryParam;
 
+/**
+ * 入力情報フォーム
+ * @author imazato
+ *
+ */
 public class InputForm {
 	
     @QueryParam("year")

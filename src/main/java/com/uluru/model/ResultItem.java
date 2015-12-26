@@ -18,7 +18,7 @@ public class ResultItem {
 	/**
 	 * 出発駅の名前
 	 */
-	private String startStationName;
+	private String departureStationName;
 
 	/**
 	 * 運賃
@@ -47,15 +47,15 @@ public class ResultItem {
 	/**
 	 * @return the startStationName
 	 */
-	public String getStartStationName() {
-		return startStationName;
+	public String getDepartureStationName() {
+		return departureStationName;
 	}
 
 	/**
-	 * @param startStationName the startStationName to set
+	 * @param departureStationName the startStationName to set
 	 */
-	public void setStartStationName(String startStationName) {
-		this.startStationName = startStationName;
+	public void setDepartureStationName(String departureStationName) {
+		this.departureStationName = departureStationName;
 	}
 
 	/**
