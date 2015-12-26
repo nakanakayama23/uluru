@@ -37,8 +37,10 @@ public class StationService {
 
 		for (int i = 0; i < inputStationList.size(); i++) {
 			String stationName = inputStationList.get(i);
-			InputStationItem stationItem = findInputStationItem((i + 1), stationName, errorMessages);
-			inputStationItemList.add(stationItem);
+			if(!"".equals(stationName)) {
+				InputStationItem stationItem = findInputStationItem((i + 1), stationName, errorMessages);
+				inputStationItemList.add(stationItem);
+			}
 		}
 
 		return inputStationItemList;
