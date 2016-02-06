@@ -19,7 +19,7 @@ a:hover { color: #e6e6e6; }
 a:active { color: #e6e6e6; }
 
 li{
-	font-size: 100%;
+	font-size: 18px;
 	display: inline-block;
 	text-align: center;
 	width: 100px;

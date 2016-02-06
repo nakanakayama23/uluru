@@ -1,0 +1,1 @@
+document.write("<br><br>エラーのためリクエストにはお答えできません<br><br>")

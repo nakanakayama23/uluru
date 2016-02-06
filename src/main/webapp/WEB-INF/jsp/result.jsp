@@ -5,6 +5,7 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="/uluru-1.0/css/result.css">
 		<link rel="stylesheet" type="text/css" href="/uluru-1.0/css/header.css">
+		<script type="text/javascript" src="/uluru-1.0/js/common.js"></script>
 		<title>結果表示画面</title>
 	</head>
 	<body>
