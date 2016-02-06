@@ -19,6 +19,7 @@ public class BetweenStationsDaoTest {
 	/**
 	 * 検索結果がある場合
 	 */
+	@Ignore
 	@Test
 	public void getTimeTest01() {
 		BetweenStationsDao bsd = new BetweenStationsDao();
@@ -41,6 +42,7 @@ public class BetweenStationsDaoTest {
 	/**
 	 * 運賃を取得できること。
 	 */
+	@Ignore
 	@Test
 	public void getFareTest() {
 		BetweenStationsDao bsd = new BetweenStationsDao();
@@ -52,6 +54,7 @@ public class BetweenStationsDaoTest {
 	/**
 	 * 近い駅名を取得できること。
 	 */
+	@Ignore
 	@Test
 	public void getNearStationTest() {
 		BetweenStationsDao target = new BetweenStationsDao();
@@ -80,6 +83,7 @@ public class BetweenStationsDaoTest {
 	/**
 	 * 最短所要時間
 	 */
+	@Ignore
 	@Test
 	public void getTimeBetweenTest() {
 		BetweenStationsDao target = new BetweenStationsDao();
@@ -93,6 +97,7 @@ public class BetweenStationsDaoTest {
 	/**
 	 * 駅リストから各駅までの時間が取得できること。
 	 */
+	@Ignore
 	@Test
 	public void getTimeTableTest() {
 		BetweenStationsDao target = new BetweenStationsDao();
