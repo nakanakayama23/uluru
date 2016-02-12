@@ -17,7 +17,7 @@
 		<div class="body_content">
 			<h1>Uluru</h1>
 			<h2>～ みんな平等 ～</h2>
-			<form method="GET" action="<%= request.getContextPath() %>/confirm">
+			<form name="inputForm" method="GET" action="<%= request.getContextPath() %>/confirm">
 				集合日時：
 				<select name="year" id="year">
 				</select>年
@@ -26,7 +26,7 @@
 						<option value="${month}" >${month}</option>
 					</c:forEach>
 				</select>月
-				<select name="day" id="date">
+				<select name="day" id="date" onFocus="chg_date_selection()">
 					<c:forEach var="date"  begin="1" end="31" step="1">
 						<option value="${date}" >${date}</option>
 					</c:forEach>

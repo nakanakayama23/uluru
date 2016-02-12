@@ -55,3 +55,45 @@ function setCurrentDate(){
       }
    }
 }
+
+/* うるう年の判定 */
+function isLeapYear(year){
+	if (year % 4 == 0 && (year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+/* 日付プルダウンリストの動的変更 */
+function chg_date_selection(){
+	var select_year = document.forms.inputForm.year;
+	var select_month = document.forms.inputForm.month;
+	var select_date = document.forms.inputForm.day;
+
+	select_date.options.length = 0;
+
+	var selected_y = select_year.options[select_year.selectedIndex].value;
+	var selected_m = select_month.options[select_month.selectedIndex].value;
+
+	if(selected_m == 4 || selected_m == 6 || selected_m == 9 || selected_m == 11){
+		for(var i = 0; i < 30; i++){
+			select_date.options[i] = new Option(i+1);
+		}
+	}else if(selected_m == 2){
+		if(isLeapYear(selected_y)){
+			for(var i = 0; i < 29; i++){
+				select_date.options[i] = new Option(i+1);
+			}
+		}else{
+			for(var i = 0; i < 28; i++){
+				select_date.options[i] = new Option(i+1);
+			}
+		}
+	}else{
+		for(var i = 0; i < 31; i++){
+			select_date.options[i] = new Option(i+1);
+		}
+	}
+}
+
