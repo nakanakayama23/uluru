@@ -12,6 +12,8 @@ import com.uluru.model.Result;
 import com.uluru.model.ResultItem;
 import com.uluru.model.Station;
 import com.uluru.model.TimeData;
+import com.uluru.utils.MinimumFactor;
+import com.uluru.utils.MinimumFactorFactory;
 
 /**
  * 駅情報を操作するクラス
@@ -133,16 +135,19 @@ public class StationService {
 
 		final int breakCount = 20;
 		int failCount = 0;
-		Integer minTime = Integer.MAX_VALUE;
+		Double minVar = Double.MAX_VALUE;
+		MinimumFactor var = MinimumFactorFactory.createMinimumFactor(MinimumFactorFactory.VAR);
 		Integer centerId = stationIds.get(0);
 		for (Integer centerStationId : nearStations) {
-			Integer sumTime = 0;
+			var.reset();
 			for (Integer stationId : stationIds) {
 				Integer time = timeTables.get(stationId).get(centerStationId);
-				sumTime += (time != null) ? time : 0;
+				if (time != null) {
+					var.addItem(time);
+				}
 			}
-			if (minTime > sumTime) {
-				minTime = sumTime;
+			if (minVar > var.getValue()) {
+				minVar = var.getValue();
 				centerId = centerStationId;
 				failCount = 0;
 			} else {
