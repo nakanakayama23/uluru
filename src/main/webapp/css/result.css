@@ -1,0 +1,45 @@
+﻿body{
+	background-color: #e6e6e6;
+	font-family: 'Noto Sans Japanese', sans-serif;
+	font-size : 1em;
+}
+.body_content{
+	margin-top : 0;
+	margin-bottom : 0;
+	margin-left : 20%;
+	margin-right: 20%;
+}
+
+.main {
+    text-align: center;
+}
+
+.grid{
+	float: left;
+	background:#ffffff;
+	color:#000000;
+	margin: 5px;
+	padding:2px;
+	word-wrap: break-word;
+	border: solid #99dfff;
+}
+
+.destination_Station{
+	height : auto;
+	width : 100%;
+	background-color : #99dfff;
+
+}
+
+@media screen and (max-width : 720px){
+	.grid {
+		width:96%;
+	}
+	html{font-size : 90%}
+}
+@media screen and (min-width : 721px){
+	.grid {
+		width:20%;
+	}
+	html{font-size : 100%}
+}

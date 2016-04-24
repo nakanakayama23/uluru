@@ -1,0 +1,27 @@
+﻿.headerArea{
+	height : 35px;
+	width : 100%
+	top : 0;
+	left : 0;
+	background: #2ca6de;
+	vertical-align: middle;
+	padding-top : auto;
+	padding-bottom : auto;
+}
+
+a{
+	text-decoration : none;
+}
+
+a:link { color: #ffffff; }
+a:visited { color: #ffffff; }
+a:hover { color: #e6e6e6; }
+a:active { color: #e6e6e6; }
+
+li{
+	font-size: 18px;
+	display: inline-block;
+	text-align: center;
+	width: 100px;
+	height: 40px;
+}
