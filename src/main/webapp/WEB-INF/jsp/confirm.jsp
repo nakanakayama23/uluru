@@ -13,7 +13,7 @@
 			<script type="text/javascript" src="/uluru-1.0/js/header.js"></script>
 		</div>
 		<div class="body_content">
-			<h1>Uluru</h1>
+			<h1>Ulururu</h1>
 			<h2>～ みんな平等 ～</h2>
 			<form method="GET" action="<%= request.getContextPath() %>/search">
 				集合日時：	<c:out value="${it.meetingTime.year}" />年

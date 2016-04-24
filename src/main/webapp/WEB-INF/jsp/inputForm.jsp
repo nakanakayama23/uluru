@@ -15,7 +15,7 @@
 			<script type="text/javascript" src="/uluru-1.0/js/header.js"></script>
 		</div>
 		<div class="body_content">
-			<h1>Uluru</h1>
+			<h1>Ulururu</h1>
 			<h2>～ みんな平等 ～</h2>
 			<form name="inputForm" method="GET" action="<%= request.getContextPath() %>/confirm">
 				集合日時：

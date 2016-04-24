@@ -6,7 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="/uluru-1.0/css/header.css">
 		<link rel="stylesheet" type="text/css" href="/uluru-1.0/css/intro.css">
 		<script type="text/javascript" src="/uluru-1.0/js/common.js"></script>
-		<title>Uluruとは</title>
+		<title>Ulururuとは</title>
 	</head>
 	<body>
 		<div class="headerArea">
