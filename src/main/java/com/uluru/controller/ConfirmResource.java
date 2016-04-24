@@ -8,6 +8,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.Context;
 
+import org.glassfish.jersey.server.mvc.ErrorTemplate;
 import org.glassfish.jersey.server.mvc.Viewable;
 
 import com.uluru.bean.ConfirmBean;
@@ -28,6 +29,7 @@ public class ConfirmResource {
 	StationService stationService = new StationService();
 
 	@GET
+	@ErrorTemplate(name = "/WEB-INF/jsp/error")
 	public Viewable handleRequest(@Context ResourceContext rc) {
 
 		// 入力フォーム情報の取得
